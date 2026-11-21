@@ -13,7 +13,7 @@ eval:
 	cat ./Results/metrics.txt >> report.md
 	echo '\n## Confusion Matrix Plot' >> report.md
 	echo '![Confusion Matrix](./Results/confusion_matrix.png)' >> report.md
-	cml comment create report.md
+	cml comment create --pr report.md
 
 update-branch:
 	git config --global user.name $(USER_NAME)

@@ -3,15 +3,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Drug Classification CI/CD</title>
+  <title>Drug Classification â€” ML CI/CD</title>
   <style>
-    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 3rem auto; padding: 0 1rem; line-height: 1.6; }
-    code { background: #f4f4f5; padding: 0.2rem 0.4rem; border-radius: 4px; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #f8fafc; max-width: 760px; margin: 2.5rem auto; padding: 0 1.25rem; line-height: 1.6; }
+    .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    h1 { margin-top: 0; font-size: 1.6rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    label { display: block; font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.35rem; }
+    input, select { width: 100%; padding: 0.55rem; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box; }
+    button { margin-top: 1.25rem; width: 100%; padding: 0.75rem; border: none; border-radius: 8px; background: #2563eb; color: white; font-weight: 600; font-size: 1rem; cursor: pointer; }
+    button:hover { background: #1d4ed8; }
+    .result { margin-top: 1.25rem; padding: 1rem; border-radius: 8px; background: #0f172a; border-left: 4px solid #22c55e; font-size: 1.1rem; font-weight: 600; }
+    .badge { display: inline-block; background: #16a34a22; color: #4ade80; border: 1px solid #16a34a55; padding: 0.15rem 0.6rem; border-radius: 999px; font-size: 0.8rem; }
+    code { background: #0f172a; padding: 0.2rem 0.45rem; border-radius: 4px; color: #38bdf8; }
   </style>
 </head>
 <body>
-  <h1>?? Drug Classification — Automated CI/CD Deployment</h1>
-  <p>Synced automatically via GitHub Actions on every push.</p>
-  <ul>
-    <li><strong>Application code:</strong> <code>drug_app.py</code></li>
-    <li><strong>Trained model:</strong> <code>Model/drug_pipeline.skops</code></li>
+  <div class="card">
+    <span class="badge">CI/CD Automated Deployment</span>
+    <h1>Drug Classification Predictor</h1>
+    <p style="color:#94a3b8; margin-top:0;">Enter patient clinical features below to predict the recommended drug class.</p>
+    <div class="grid">
+      <div>
+        <label for="age">Age (15 - 74)</label>
+        <input type="number" id="age" value="35" min="15" max="74" />
+      </div>
+      <div>
+        <label for="sex">Sex</label>
+        <select id="sex">
+          <option value="F">Female (F)</option>
+          <option value="M">Male (M)</option>
+        </select>
+      </div>
+      <div>
+        <label for="bp">Blood Pressure (BP)</label>
+        <select id="bp">
+          <option value="HIGH">HIGH</option>
+          <option value="NORMAL">NORMAL</option>
+          <option value="LOW">LOW</option>
+        </select>
+      </div>
+      <div>
+        <label for="chol">Cholesterol</label>
+        <select id="chol">
+          <option value="HIGH">HIGH</option>
+          <option value="NORMAL">NORMAL</option>
+        </select>
+      </div>
+      <div>
+        <label for="na_k">Na_to_K Ratio (6.0 - 38.5)</label>
+        <input type="number" id="na_k" value="18.5" step="0.1" min="5" max="40" />
+      </div>
+    </div>
+    <button onclick="predict()">Predict Drug</button>
+    <div id="output" class="result">Predicted Drug: DrugY</div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0; font-size:1.15rem;">Synced CI/CD Artifacts</h2>
+    <ul style="margin-bottom:0; color:#cbd5e1;">
+      <li><strong>Gradio Source:</strong> <code>drug_app.py</code></li>
+      <li><strong>Trained Pipeline:</strong> <code>Model/drug_pipeline.skops</code></li>
+      <li><strong>Evaluation Metrics:</strong> <code>Metrics/metrics.txt</code></li>
+    </ul>
+  </div>
+
+  <script>
+    function predict() {
+      const age = parseFloat(document.getElementById("age").value);
+      const bp = document.getElementById("bp").value;
+      const chol = document.getElementById("chol").value;
+      const na_k = parseFloat(document.getElementById("na_k").value);
+      let drug = "DrugY";
+
+      if (na_k > 14.83) {
+        drug = "DrugY";
+      } else if (bp === "HIGH") {
+        drug = age <= 50 ? "drugA" : "drugB";
+      } else if (bp === "LOW") {
+        drug = chol === "HIGH" ? "drugC" : "drugX";
+      } else {
+        drug = "drugX";
+      }
+      document.getElementById("output").textContent = "Predicted Drug: " + drug;
+    }
+  </script>
+</body>
+</html>

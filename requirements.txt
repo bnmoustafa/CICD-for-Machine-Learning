@@ -1,3 +1,6 @@
-black
+pandas
 scikit-learn
+matplotlib
 skops
+black
+EOF

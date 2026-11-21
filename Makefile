@@ -14,7 +14,7 @@ eval:
 	if [ "$${GITHUB_EVENT_NAME}" = "pull_request" ]; then cml comment create report.md --target pr; else cml comment create report.md --target commit; fi
 
 hf-login:
-	hf auth login --token $(HF) --add-to-git-credential
+	hf auth login --token $(HF_TOKEN) --add-to-git-credential
 
 push-hub:
 	hf upload bnmoustafa/Drug-Classification ./App --repo-type=space --commit-message="Sync App files"

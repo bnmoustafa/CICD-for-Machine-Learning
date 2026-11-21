@@ -13,7 +13,11 @@ eval:
 	cat ./Results/metrics.txt >> report.md
 	echo '\n## Confusion Matrix Plot' >> report.md
 	echo '![Confusion Matrix](./Results/confusion_matrix.png)' >> report.md
-	cml comment create --pr report.md
+	if [ -n "$$REPO_TOKEN" ] && [ "$$GITHUB_EVENT_NAME" = "pull_request" ]; then \
+		cml comment create --pr report.md; \
+	else \
+		echo "Skipping CML PR comment outside pull-request workflow"; \
+	fi
 
 update-branch:
 	git config --global user.name $(USER_NAME)

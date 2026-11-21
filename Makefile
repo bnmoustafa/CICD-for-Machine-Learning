@@ -11,6 +11,4 @@ train:
 eval:
 	echo "## Model Metrics" > report.md
 	cat ./Results/metrics.txt >> report.md
-	echo '\n## Confusion Matrix Plot' >> report.md
-	echo '![Confusion Matrix](./Results/confusion_matrix.png)' >> report.md
-	if [ "${{ github.event_name }}" = "pull_request" ]; then cml comment create --pr report.md; else cml comment create report.md; fi
+	if [ "$${GITHUB_EVENT_NAME}" = "pull_request" ]; then cml comment create report.md --target pr; else cml comment create report.md --target commit; fi

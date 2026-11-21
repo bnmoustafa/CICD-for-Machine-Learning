@@ -1,13 +1,13 @@
 ---
 title: Drug Classification
-emoji: 🔥
-colorFrom: yellow
-colorTo: blue
+emoji: 💊
+colorFrom: blue
+colorTo: green
 sdk: gradio
-sdk_version: 6.19.0
-python_version: '3.11.3'
-app_file: app.py
+sdk_version: 5.0.0
+app_file: drug_app.py
 pinned: false
-license: apache-2.0
 ---
 
+# Drug Classification
+Predicts the appropriate drug type based on patient age, sex, blood pressure, cholesterol, and sodium-to-potassium ratio.

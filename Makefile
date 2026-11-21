@@ -13,7 +13,7 @@ eval:
 	cat ./Results/metrics.txt >> report.md
 	echo '\n## Confusion Matrix Plot' >> report.md
 	printf '![Confusion Matrix](data:image/png;base64,%s)\n' "$$(base64 -w 0 ./Results/confusion_matrix.png)" >> report.md
-	cml comment create report.md
+	if [ "$$GITHUB_EVENT_NAME" = "pull_request" ]; then cml comment create --pr report.md; else cml comment create report.md; fi
 
 update-branch:
 	git config --global user.name $(USER_NAME)
